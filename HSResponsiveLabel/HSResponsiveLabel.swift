@@ -10,10 +10,10 @@ import UIKit
 
 open class HSResponsiveLabel: UILabel {
     
-    open var kinds: [ResponsiveElementKind] = []
+    open var kinds: [ElementKind] = []
     
-    private var identifiableKinds: Set<ResponsiveElementKind> {
-        Set<ResponsiveElementKind>(kinds)
+    private var identifiableKinds: Set<ElementKind> {
+        Set<ElementKind>(kinds)
     }
     
     private var textStorage: NSTextStorage = NSTextStorage()
