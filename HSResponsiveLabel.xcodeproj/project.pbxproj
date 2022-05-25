@@ -17,6 +17,14 @@
 		1CA1198D283E6C43001FE626 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1CA1198B283E6C43001FE626 /* Main.storyboard */; };
 		1CA1198F283E6C44001FE626 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1CA1198E283E6C44001FE626 /* Assets.xcassets */; };
 		1CA11992283E6C44001FE626 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1CA11990283E6C44001FE626 /* LaunchScreen.storyboard */; };
+		1CA11998283E6EE1001FE626 /* ResponsiveElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA11997283E6EE1001FE626 /* ResponsiveElement.swift */; };
+		1CA1199A283E6EF1001FE626 /* HSResponsiveLabel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CA11965283E6B9F001FE626 /* HSResponsiveLabel.framework */; };
+		1CA1199B283E6EF1001FE626 /* HSResponsiveLabel.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1CA11965283E6B9F001FE626 /* HSResponsiveLabel.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		1CA119A0283E6F22001FE626 /* ResponsiveElementManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA1199F283E6F22001FE626 /* ResponsiveElementManager.swift */; };
+		1CA119A2283E6F48001FE626 /* ElementKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA119A1283E6F48001FE626 /* ElementKind.swift */; };
+		1CA119A4283E6F8D001FE626 /* HSResponsiveLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA119A3283E6F8D001FE626 /* HSResponsiveLabel.swift */; };
+		1CA119A6283E6F9F001FE626 /* URLElementKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA119A5283E6F9F001FE626 /* URLElementKind.swift */; };
+		1CA119AC283E89C9001FE626 /* RegexParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA119AB283E89C9001FE626 /* RegexParser.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,7 +35,28 @@
 			remoteGlobalIDString = 1CA11964283E6B9F001FE626;
 			remoteInfo = HSResponsiveLabel;
 		};
+		1CA1199C283E6EF1001FE626 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1CA1195C283E6B9F001FE626 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1CA11964283E6B9F001FE626;
+			remoteInfo = HSResponsiveLabel;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		1CA1199E283E6EF1001FE626 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				1CA1199B283E6EF1001FE626 /* HSResponsiveLabel.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		1CA11965283E6B9F001FE626 /* HSResponsiveLabel.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HSResponsiveLabel.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -43,6 +72,12 @@
 		1CA1198E283E6C44001FE626 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1CA11991283E6C44001FE626 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1CA11993283E6C44001FE626 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1CA11997283E6EE1001FE626 /* ResponsiveElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponsiveElement.swift; sourceTree = "<group>"; };
+		1CA1199F283E6F22001FE626 /* ResponsiveElementManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponsiveElementManager.swift; sourceTree = "<group>"; };
+		1CA119A1283E6F48001FE626 /* ElementKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElementKind.swift; sourceTree = "<group>"; };
+		1CA119A3283E6F8D001FE626 /* HSResponsiveLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSResponsiveLabel.swift; sourceTree = "<group>"; };
+		1CA119A5283E6F9F001FE626 /* URLElementKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLElementKind.swift; sourceTree = "<group>"; };
+		1CA119AB283E89C9001FE626 /* RegexParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegexParser.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +100,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1CA1199A283E6EF1001FE626 /* HSResponsiveLabel.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +114,7 @@
 				1CA11973283E6B9F001FE626 /* HSResponsiveLabelTests */,
 				1CA11984283E6C43001FE626 /* HSResponsiveLabelExample */,
 				1CA11966283E6B9F001FE626 /* Products */,
+				1CA11999283E6EF1001FE626 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -96,6 +133,12 @@
 			children = (
 				1CA11968283E6B9F001FE626 /* HSResponsiveLabel.h */,
 				1CA11969283E6B9F001FE626 /* HSResponsiveLabel.docc */,
+				1CA119A3283E6F8D001FE626 /* HSResponsiveLabel.swift */,
+				1CA11997283E6EE1001FE626 /* ResponsiveElement.swift */,
+				1CA1199F283E6F22001FE626 /* ResponsiveElementManager.swift */,
+				1CA119A1283E6F48001FE626 /* ElementKind.swift */,
+				1CA119A5283E6F9F001FE626 /* URLElementKind.swift */,
+				1CA119AB283E89C9001FE626 /* RegexParser.swift */,
 			);
 			path = HSResponsiveLabel;
 			sourceTree = "<group>";
@@ -120,6 +163,13 @@
 				1CA11993283E6C44001FE626 /* Info.plist */,
 			);
 			path = HSResponsiveLabelExample;
+			sourceTree = "<group>";
+		};
+		1CA11999283E6EF1001FE626 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -179,10 +229,12 @@
 				1CA1197F283E6C43001FE626 /* Sources */,
 				1CA11980283E6C43001FE626 /* Frameworks */,
 				1CA11981283E6C43001FE626 /* Resources */,
+				1CA1199E283E6EF1001FE626 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				1CA1199D283E6EF1001FE626 /* PBXTargetDependency */,
 			);
 			name = HSResponsiveLabelExample;
 			productName = HSResponsiveLabelExample;
@@ -262,6 +314,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1CA11998283E6EE1001FE626 /* ResponsiveElement.swift in Sources */,
+				1CA119A2283E6F48001FE626 /* ElementKind.swift in Sources */,
+				1CA119AC283E89C9001FE626 /* RegexParser.swift in Sources */,
+				1CA119A6283E6F9F001FE626 /* URLElementKind.swift in Sources */,
+				1CA119A0283E6F22001FE626 /* ResponsiveElementManager.swift in Sources */,
+				1CA119A4283E6F8D001FE626 /* HSResponsiveLabel.swift in Sources */,
 				1CA1196A283E6B9F001FE626 /* HSResponsiveLabel.docc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -291,6 +349,11 @@
 			isa = PBXTargetDependency;
 			target = 1CA11964283E6B9F001FE626 /* HSResponsiveLabel */;
 			targetProxy = 1CA11971283E6B9F001FE626 /* PBXContainerItemProxy */;
+		};
+		1CA1199D283E6EF1001FE626 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1CA11964283E6B9F001FE626 /* HSResponsiveLabel */;
+			targetProxy = 1CA1199C283E6EF1001FE626 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -493,6 +556,7 @@
 		1CA1197D283E6B9F001FE626 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3885XCJRT2;
@@ -509,6 +573,7 @@
 		1CA1197E283E6B9F001FE626 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3885XCJRT2;
