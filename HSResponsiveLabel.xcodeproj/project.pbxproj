@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		1CA1196A283E6B9F001FE626 /* HSResponsiveLabel.docc in Sources */ = {isa = PBXBuildFile; fileRef = 1CA11969283E6B9F001FE626 /* HSResponsiveLabel.docc */; };
 		1CA11970283E6B9F001FE626 /* HSResponsiveLabel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CA11965283E6B9F001FE626 /* HSResponsiveLabel.framework */; };
-		1CA11975283E6B9F001FE626 /* HSResponsiveLabelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA11974283E6B9F001FE626 /* HSResponsiveLabelTests.swift */; };
+		1CA11975283E6B9F001FE626 /* RegexParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA11974283E6B9F001FE626 /* RegexParserTests.swift */; };
 		1CA11976283E6B9F001FE626 /* HSResponsiveLabel.h in Headers */ = {isa = PBXBuildFile; fileRef = 1CA11968283E6B9F001FE626 /* HSResponsiveLabel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1CA11986283E6C43001FE626 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA11985283E6C43001FE626 /* AppDelegate.swift */; };
 		1CA11988283E6C43001FE626 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA11987283E6C43001FE626 /* SceneDelegate.swift */; };
@@ -63,7 +63,7 @@
 		1CA11968283E6B9F001FE626 /* HSResponsiveLabel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSResponsiveLabel.h; sourceTree = "<group>"; };
 		1CA11969283E6B9F001FE626 /* HSResponsiveLabel.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = HSResponsiveLabel.docc; sourceTree = "<group>"; };
 		1CA1196F283E6B9F001FE626 /* HSResponsiveLabelTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HSResponsiveLabelTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		1CA11974283E6B9F001FE626 /* HSResponsiveLabelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSResponsiveLabelTests.swift; sourceTree = "<group>"; };
+		1CA11974283E6B9F001FE626 /* RegexParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegexParserTests.swift; sourceTree = "<group>"; };
 		1CA11983283E6C43001FE626 /* HSResponsiveLabelExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HSResponsiveLabelExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CA11985283E6C43001FE626 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1CA11987283E6C43001FE626 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -146,7 +146,7 @@
 		1CA11973283E6B9F001FE626 /* HSResponsiveLabelTests */ = {
 			isa = PBXGroup;
 			children = (
-				1CA11974283E6B9F001FE626 /* HSResponsiveLabelTests.swift */,
+				1CA11974283E6B9F001FE626 /* RegexParserTests.swift */,
 			);
 			path = HSResponsiveLabelTests;
 			sourceTree = "<group>";
@@ -328,7 +328,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1CA11975283E6B9F001FE626 /* HSResponsiveLabelTests.swift in Sources */,
+				1CA11975283E6B9F001FE626 /* RegexParserTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
