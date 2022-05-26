@@ -13,7 +13,11 @@ public protocol ResponsiveElementKindType {
     
     var textColor: UIColor? { get set }
     
-    var selectedColor: UIColor? { get set }
+    var selectedTextColor: UIColor? { get set }
+
+    var textAttributes: [NSAttributedString.Key: Any] { get set }
+
+    var selectedTextAttributes: [NSAttributedString.Key: Any] { get set }
     
     var isEnabled: Bool { get set }
     
@@ -30,10 +34,14 @@ open class ElementKind: ResponsiveElementKindIdentifiableType {
     
     open var textColor: UIColor? = .blue
     
-    open var selectedColor: UIColor? = .blue
+    open var selectedTextColor: UIColor? = .blue
+
+    open var textAttributes: [NSAttributedString.Key : Any] = [:]
+
+    open var selectedTextAttributes: [NSAttributedString.Key : Any] = [:]
     
     open var isEnabled: Bool = true
-    
+
     open var regexPattern: String
     
     open var didTapHandler: ((ResponsiveElement) -> Void)?
