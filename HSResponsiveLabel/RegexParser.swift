@@ -7,24 +7,19 @@
 
 import Foundation
 
-class RegexParser {
+final class RegexParser {
     func parse(
         from mutAttrString: NSMutableAttributedString,
         kind: ElementKind
     ) -> [ResponsiveElement] {
-        guard let regex = try? NSRegularExpression(pattern: kind.regexPattern, options: []) else {
-            return []
-        }
+        guard let regex = try? NSRegularExpression(pattern: kind.regexPattern, options: []) else { return [] }
         let text = mutAttrString.string
-        let checkingResults = regex.matches(in: text, options: [], range: NSRange(text.startIndex..., in: text))
-        let responsiveElements = checkingResults.compactMap { checkingResult -> ResponsiveElement? in
-            guard let range = Range(checkingResult.range, in: text) else {
-                return nil
-            }
-            let resultString = String(text[range])
-            return ResponsiveElement(id: kind.id, range: checkingResult.range, string: resultString)
+        let textCheckingResults = regex.matches(in: text, options: [], range: NSRange(text.startIndex..., in: text))
+        let results = textCheckingResults.compactMap { checkingResult -> ResponsiveElement? in
+            guard let range = Range(checkingResult.range, in: text) else { return nil }
+            let string = String(text[range])
+            return ResponsiveElement(id: kind.id, range: checkingResult.range, string: string)
         }
-        return responsiveElements
+        return results
     }
-    
 }
