@@ -12,13 +12,37 @@ class ViewController: UIViewController {
     
     private lazy var responsiveLabel: HSResponsiveLabel = {
         let label = HSResponsiveLabel()
-        let myCustomKind = ElementKind(id: "my.custom", regexPattern: "[a-zA-Z]+") { element in
-            self.alert("my.custom", message: element.string)
-//            element.id
+        
+        let myCustomKind = ElementKind(id: "my.custom.kind", regexPattern: "[a-zA-Z]+") { element in
+            self.alert("my.custom.kind", message: element.string)
         }
-        //navigation
-        let urlKind = URLElementKind(id: "url")
-        label.kinds = [myCustomKind, urlKind]
+        myCustomKind.textColor = .systemBlue
+        myCustomKind.selectedTextColor = .systemYellow
+        
+        let urlKind = URLElementKind(id: "my.url.kind", enabledURLs: [
+            URL(string: "http://www.naver.com"),
+            URL(string: "www.google.com")
+        ]) { element in
+            self.alert("my.url.kind", message: element.string)
+        }
+        urlKind.textColor = .systemRed
+        urlKind.selectedTextColor = .systemYellow
+        urlKind.configureHandler = { element, attributes in
+            var newAttributes = attributes
+            switch element.string {
+            case "http://www.naver.com":
+                newAttributes[NSAttributedString.Key.foregroundColor] = UIColor.systemGreen
+                return (true, newAttributes)
+            default:
+                break
+            }
+            return (false, newAttributes)
+        }
+        
+        label.kinds = [urlKind]
+        label.font = UIFont.systemFont(ofSize: 20, weight: .light)
+        label.textColor = .systemGray2
+        label.lineBreakMode = .byWordWrapping
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -27,20 +51,27 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        //  ActiveLabel, TTTAttributedLabel 이기고 싶다면,
-        //  Mention
-
         responsiveLabel.text =
+//        """
+//        도시속밀림 반포 한강공원 세빛섬에서 한강 요트 투어를 즐길 수 있습니다.
+//        골든블루마리나의 레인보우브릿지 한강 요트 대여로 요트 투어를 즐겨보세요!
+//        6/23은 FoundationTF 회식이 있어서 제외했습니다.
+//        결정: 이번주 Weekly 시간에.
+//        1번이 한강 크루즈 + 뷔페인거죠? ㅎ
+//        스총무 어떻게 되나요?
+//        크루즈를 가겠군요
+//        Dewey의 열렬한 반응으로 크루즈 + 선상뷔페 에서 식사후 + 요트 코스로 변경하겠습니다.
+//        """
         """
-            도시속밀림 반포 한강공원 세빛섬에서 한강 요트 투어를 즐길 수 있습니다.
-            골든블루마리나의 레인보우브릿지 한강 요트 대여로 요트 투어를 즐겨보세요!
-            6/23은 FoundationTF 회식이 있어서 제외했습니다.
-            결정: 이번주 Weekly 시간에.
-            1번이 한강 크루즈 + 뷔페인거죠? ㅎ
-            스총무 어떻게 되나요?
-            Stanley, Tim
-            크루즈를 가겠군요
-            Dewey의 열렬한 반응으로 크루즈 + 선상뷔페 에서 식사후 + 요트 코스로 변경하겠습니다.
+        - https://m.search.daum.net
+        - https://qandastudent.page.link/
+        - fasdfasfasfsa.com
+        - sdsdfafa.fasdfasdf.ac.kr
+        - www.google.com
+        - http://www.naver.com
+        
+        nQETC9sEQjAgt3oJ6 콴다 dadsfadsfadf.com - 문제가 문제 되지 않을 때까지
+        친구가 콴다 스터디 그룹에 초대했어요!함께 공부하러 가볼까요~?
         """
 
         view.addSubview(responsiveLabel)
