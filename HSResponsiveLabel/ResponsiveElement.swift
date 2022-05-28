@@ -7,11 +7,25 @@
 
 import Foundation
 
-public struct ResponsiveElement: Identifiable {
+public class ResponsiveElement: Identifiable {
     
-    public var id: ResponsiveElementKindIdentifier
+    public let id: ResponsiveElementKindIdentifier
     
-    public var range: NSRange
+    public let range: NSRange
     
-    public var string: String
+    public let string: String
+    
+    public var isUserInteractionEnabeld: Bool
+    
+    public init(
+        id: ResponsiveElementKindIdentifier,
+        range: NSRange,
+        string: String,
+        isUserInteractionEnabeld: Bool = true
+    ) {
+        self.id = id
+        self.range = range
+        self.string = string
+        self.isUserInteractionEnabeld = isUserInteractionEnabeld
+    }
 }
