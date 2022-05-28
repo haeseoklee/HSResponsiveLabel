@@ -25,6 +25,9 @@
 		1CA119A4283E6F8D001FE626 /* HSResponsiveLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA119A3283E6F8D001FE626 /* HSResponsiveLabel.swift */; };
 		1CA119A6283E6F9F001FE626 /* URLElementKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA119A5283E6F9F001FE626 /* URLElementKind.swift */; };
 		1CA119AC283E89C9001FE626 /* RegexParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA119AB283E89C9001FE626 /* RegexParser.swift */; };
+		1CA119AE284119B9001FE626 /* RegexBuilderType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA119AD284119B9001FE626 /* RegexBuilderType.swift */; };
+		1CA119B028412026001FE626 /* URLRegexBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA119AF28412026001FE626 /* URLRegexBuilder.swift */; };
+		1CA119B22841E80F001FE626 /* NSAttributedString+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA119B12841E80F001FE626 /* NSAttributedString+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,6 +81,9 @@
 		1CA119A3283E6F8D001FE626 /* HSResponsiveLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSResponsiveLabel.swift; sourceTree = "<group>"; };
 		1CA119A5283E6F9F001FE626 /* URLElementKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLElementKind.swift; sourceTree = "<group>"; };
 		1CA119AB283E89C9001FE626 /* RegexParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegexParser.swift; sourceTree = "<group>"; };
+		1CA119AD284119B9001FE626 /* RegexBuilderType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegexBuilderType.swift; sourceTree = "<group>"; };
+		1CA119AF28412026001FE626 /* URLRegexBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLRegexBuilder.swift; sourceTree = "<group>"; };
+		1CA119B12841E80F001FE626 /* NSAttributedString+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,10 +140,13 @@
 				1CA11968283E6B9F001FE626 /* HSResponsiveLabel.h */,
 				1CA11969283E6B9F001FE626 /* HSResponsiveLabel.docc */,
 				1CA119A3283E6F8D001FE626 /* HSResponsiveLabel.swift */,
+				1CA119B12841E80F001FE626 /* NSAttributedString+Extension.swift */,
 				1CA11997283E6EE1001FE626 /* ResponsiveElement.swift */,
 				1CA1199F283E6F22001FE626 /* ResponsiveElementManager.swift */,
 				1CA119A1283E6F48001FE626 /* ElementKind.swift */,
 				1CA119A5283E6F9F001FE626 /* URLElementKind.swift */,
+				1CA119AD284119B9001FE626 /* RegexBuilderType.swift */,
+				1CA119AF28412026001FE626 /* URLRegexBuilder.swift */,
 				1CA119AB283E89C9001FE626 /* RegexParser.swift */,
 			);
 			path = HSResponsiveLabel;
@@ -321,6 +330,9 @@
 				1CA119A0283E6F22001FE626 /* ResponsiveElementManager.swift in Sources */,
 				1CA119A4283E6F8D001FE626 /* HSResponsiveLabel.swift in Sources */,
 				1CA1196A283E6B9F001FE626 /* HSResponsiveLabel.docc in Sources */,
+				1CA119B22841E80F001FE626 /* NSAttributedString+Extension.swift in Sources */,
+				1CA119B028412026001FE626 /* URLRegexBuilder.swift in Sources */,
+				1CA119AE284119B9001FE626 /* RegexBuilderType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
