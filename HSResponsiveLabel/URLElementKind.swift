@@ -7,62 +7,73 @@
 
 import UIKit
 
+// MARK: - URLElementKindIdentfiableType
+
 public protocol URLElementKindIdentfiableType: ResponsiveElementKindIdentifiableType {
     
-    var enabledURLList: [String] { get }
+    var enabledURLs: [URL?] { get }
 
-    var baseURL: String? { get }
+    var enabledBaseURLs: [URL?] { get }
 
-    var scheme: String? { get }
+    var enabledSchemes: [String] { get }
 }
 
+// MARK: - URLElementKind
+
 open class URLElementKind: ElementKind, URLElementKindIdentfiableType {
-
-    public static let urlRegexPattern: String = "defaultRegexPattern"
     
-    open private(set) var enabledURLList: [String] = []
+    // MARK: Properties
+    
+    open private(set) var enabledURLs: [URL?] = []
 
-    open private(set) var baseURL: String?
+    open private(set) var enabledBaseURLs: [URL?] = []
 
-    open private(set) var scheme: String?
-
-    public init(
-        id: String,
-        didTapHandler: ((ResponsiveElement) -> Void)? = nil
-    ) {
-        super.init(id: id, regexPattern: URLElementKind.urlRegexPattern, didTapHandler: didTapHandler)
+    open private(set) var enabledSchemes: [String] = []
+    
+    private let regexBuilder: URLRegexBuilerType = URLRegexBuilder()
+    
+    // MARK: Methods
+    
+    public init(id: String, didTapHandler: ElementDidTapHandlerType? = nil) {
+        super.init(id: id, regexPattern: regexBuilder.makeRegexPattern(), didTapHandler: didTapHandler)
     }
 
     public init(
         id: String,
-        enabledURLList: [String] = [],
-        didTapHandler: ((ResponsiveElement) -> Void)? = nil
+        enabledURLs: [URL?],
+        didTapHandler: ElementDidTapHandlerType? = nil
     ) {
-        self.enabledURLList = enabledURLList
-        var regexPattern = URLElementKind.urlRegexPattern
-        
-        // TODO: modify regex pattern when enabledURL is not empty
-        if !enabledURLList.isEmpty {
-            regexPattern = "newRegexPatternWithEnabledURLList"
+        self.enabledURLs = enabledURLs
+        var regexPattern = regexBuilder.makeRegexPattern()
+        if !enabledURLs.isEmpty {
+            regexPattern = regexBuilder.makeRegexPattern(enabledURLs: enabledURLs)
         }
-        
         super.init(id: id, regexPattern: regexPattern, didTapHandler: didTapHandler)
     }
 
     public init(
         id: String,
-        baseURL: String,
-        didTapHandler: ((ResponsiveElement) -> Void)? = nil
+        enabledBaseURLs: [URL?],
+        didTapHandler: ElementDidTapHandlerType? = nil
     ) {
-        self.baseURL = baseURL
-        var regexPattern = URLElementKind.urlRegexPattern
-
-        // TODO: modify regex pattern when baseURL is not empty
-        if let baseURL = self.baseURL, !baseURL.isEmpty {
-            regexPattern = "newRegexPatternWithEnabledURLList"
+        self.enabledBaseURLs = enabledBaseURLs
+        var regexPattern = regexBuilder.makeRegexPattern()
+        if !enabledBaseURLs.isEmpty {
+            regexPattern = regexBuilder.makeRegexPattern(enabledBaseURLs: enabledBaseURLs)
         }
-
         super.init(id: id, regexPattern: regexPattern, didTapHandler: didTapHandler)
     }
-
+    
+    public init(
+        id: String,
+        enabledSchemes: [String],
+        didTapHandler: ElementDidTapHandlerType? = nil
+    ) {
+        self.enabledSchemes = enabledSchemes
+        var regexPattern = regexBuilder.makeRegexPattern()
+        if !enabledSchemes.isEmpty {
+            regexPattern = "newRegexPatternWithEnabledURLList"
+        }
+        super.init(id: id, regexPattern: regexPattern, didTapHandler: didTapHandler)
+    }
 }
