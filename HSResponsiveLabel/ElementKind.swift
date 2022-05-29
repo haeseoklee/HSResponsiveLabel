@@ -7,44 +7,11 @@
 
 import UIKit
 
-public typealias ResponsiveElementKindIdentifier = String
-
-public typealias ElementDidTapHandlerType = (ResponsiveElement) -> Void
-
-public typealias ElementConfigureHandlerType = (ResponsiveElement, [NSAttributedString.Key : Any]) -> ElementConfigureHandlerResultType
-
-public typealias ElementConfigureHandlerResultType = (canHook: Bool, newAttributes: [NSAttributedString.Key : Any])
-
-// MARK: - ResponsiveElementKindType
-
-public protocol ResponsiveElementKindType {
-    
-    var textColor: UIColor? { get set }
-    
-    var selectedTextColor: UIColor? { get set }
-
-    var textAttributes: [NSAttributedString.Key: Any] { get set }
-
-    var selectedTextAttributes: [NSAttributedString.Key: Any] { get set }
-    
-    var regexPattern: String { get set }
-    
-    var didTapHandler: ElementDidTapHandlerType? { get set }
-    
-    var configureHandler: ElementConfigureHandlerType? { get set }
-}
-
-// MARK: - ResponsiveElementKindIdentifiableType
-
-public protocol ResponsiveElementKindIdentifiableType: Identifiable, Hashable, ResponsiveElementKindType {}
-
-// MARK: - ElementKind
-
 open class ElementKind: ResponsiveElementKindIdentifiableType {
     
     // MARK: Properties
 
-    open var id: ResponsiveElementKindIdentifier
+    public let id: ResponsiveElementKindIdentifier
     
     open var textColor: UIColor? = .blue {
         didSet {
@@ -66,7 +33,7 @@ open class ElementKind: ResponsiveElementKindIdentifiableType {
         NSAttributedString.Key.foregroundColor: UIColor.blue
     ]
 
-    open var regexPattern: String
+    public let regexPattern: String
     
     open var didTapHandler: ((ResponsiveElement) -> Void)?
     
