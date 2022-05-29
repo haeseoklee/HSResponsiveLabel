@@ -13,7 +13,7 @@ final class ResponsiveElementManager {
     
     // MARK: Properties
     
-    private let regexParser: RegexParser = RegexParser()
+    private let regexParser: RegexParserType = RegexParser()
 
     private var kinds: Set<ElementKind> = Set()
 
@@ -28,7 +28,9 @@ extension ResponsiveElementManager {
     
     func fetchElements(from mutAttrString: NSMutableAttributedString) {
         kinds.forEach { kind in
-            elementDict[kind] = regexParser.parse(from: mutAttrString, kind: kind)
+            elementDict[kind] = regexParser
+                .parse(from: mutAttrString.string, pattern: kind.regexPattern)
+                .map { result in ResponsiveElement(id: kind.id, range: result.range, string: result.string) }
         }
     }
     
