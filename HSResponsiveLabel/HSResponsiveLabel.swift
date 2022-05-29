@@ -16,7 +16,43 @@ open class HSResponsiveLabel: UILabel {
             update()
         }
     }
-
+    
+    open override var font: UIFont! {
+        didSet {
+            update()
+        }
+    }
+    
+    open override var textColor: UIColor! {
+        didSet {
+            update()
+        }
+    }
+    
+    open override var shadowColor: UIColor? {
+        didSet {
+            update()
+        }
+    }
+    
+    open override var shadowOffset: CGSize {
+        didSet {
+            update()
+        }
+    }
+    
+    open override var textAlignment: NSTextAlignment {
+        didSet {
+            update()
+        }
+    }
+    
+    open override var lineBreakMode: NSLineBreakMode {
+        didSet {
+            update()
+        }
+    }
+    
     open override var attributedText: NSAttributedString? {
         didSet {
             update()
@@ -26,12 +62,6 @@ open class HSResponsiveLabel: UILabel {
     open override var numberOfLines: Int {
         didSet {
             textContainer.maximumNumberOfLines = numberOfLines
-        }
-    }
-    
-    open override var lineBreakMode: NSLineBreakMode {
-        didSet {
-            textContainer.lineBreakMode = lineBreakMode
         }
     }
     
