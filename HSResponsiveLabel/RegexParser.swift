@@ -7,18 +7,29 @@
 
 import Foundation
 
-final class RegexParser {
+// MARK: - RegexParserType
+
+protocol RegexParserType {
+    
+    typealias RegexParserResultType = (range: NSRange, string: String)
+    
+    func parse(from text: String, pattern: String) -> [RegexParserResultType]
+}
+
+// MARK: - RegexParser
+
+final class RegexParser: RegexParserType {
+    
     func parse(
-        from mutAttrString: NSMutableAttributedString,
-        kind: ElementKind
-    ) -> [ResponsiveElement] {
-        guard let regex = try? NSRegularExpression(pattern: kind.regexPattern, options: []) else { return [] }
-        let text = mutAttrString.string
+        from text: String,
+        pattern: String
+    ) -> [RegexParserResultType] {
+        guard let regex = try? NSRegularExpression(pattern: pattern, options: []) else { return [] }
         let textCheckingResults = regex.matches(in: text, options: [], range: NSRange(text.startIndex..., in: text))
-        let results = textCheckingResults.compactMap { checkingResult -> ResponsiveElement? in
+        let results = textCheckingResults.compactMap { checkingResult -> RegexParserResultType? in
             guard let range = Range(checkingResult.range, in: text) else { return nil }
             let string = String(text[range])
-            return ResponsiveElement(id: kind.id, range: checkingResult.range, string: string)
+            return (range: checkingResult.range, string: string)
         }
         return results
     }
