@@ -24,15 +24,35 @@ open class ElementKind: ResponsiveElementKindIdentifiableType {
             selectedTextAttributes[NSAttributedString.Key.foregroundColor] = selectedTextColor
         }
     }
+    
+    private var _textAttributes: [NSAttributedString.Key: Any] = [:]
 
-    open var textAttributes: [NSAttributedString.Key : Any] = [
-        NSAttributedString.Key.foregroundColor: UIColor.blue
-    ]
+    open var textAttributes: [NSAttributedString.Key: Any] {
+        get {
+            if let textColor = textColor {
+                _textAttributes[NSAttributedString.Key.foregroundColor] = textColor
+            }
+            return _textAttributes
+        }
+        set {
+            _textAttributes = newValue
+        }
+    }
+    
+    private var _selectedTextAttributes: [NSAttributedString.Key: Any] = [:]
 
-    open var selectedTextAttributes: [NSAttributedString.Key : Any] = [
-        NSAttributedString.Key.foregroundColor: UIColor.blue
-    ]
-
+    open var selectedTextAttributes: [NSAttributedString.Key: Any] {
+        get {
+            if let selectedTextColor = selectedTextColor {
+                _selectedTextAttributes[NSAttributedString.Key.foregroundColor] = selectedTextColor
+            }
+            return _selectedTextAttributes
+        }
+        set {
+            _selectedTextAttributes = newValue
+        }
+    }
+    
     public let regexPattern: String
     
     open var didTapHandler: ((ResponsiveElement) -> Void)?
