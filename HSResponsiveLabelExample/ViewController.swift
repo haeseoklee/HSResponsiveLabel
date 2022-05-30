@@ -19,19 +19,21 @@ class ViewController: UIViewController {
         myCustomKind.textColor = .systemBlue
         myCustomKind.selectedTextColor = .systemYellow
         
-        let urlKind = URLElementKind(id: "my.url.kind", enabledURLs: [
-            URL(string: "http://www.naver.com"),
-            URL(string: "www.google.com")
+        let urlKind = URLElementKind(id: "my.url.kind", enabledSchemes: [
+            "http", "https"
         ]) { element in
             self.alert("my.url.kind", message: element.string)
         }
         urlKind.textColor = .systemRed
+        urlKind.textAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20)]
         urlKind.selectedTextColor = .systemYellow
+        urlKind.selectedTextAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 25)]
         urlKind.configureHandler = { element, attributes in
             var newAttributes = attributes
             switch element.string {
             case "http://www.naver.com":
                 newAttributes[NSAttributedString.Key.foregroundColor] = UIColor.systemGreen
+                newAttributes[NSAttributedString.Key.font] = UIFont.systemFont(ofSize: 20)
                 return (true, newAttributes)
             default:
                 break
@@ -69,6 +71,7 @@ class ViewController: UIViewController {
         - sdsdfafa.fasdfasdf.ac.kr
         - www.google.com
         - http://www.naver.com
+        - https://www.google.com/search?q=qanda&oq=qanda&aqs=chrome..69i57j0i512j69i60l2j69i65l2j69i61j69i60.2422j0j7&sourceid=chrome&ie=UTF-8
         
         nQETC9sEQjAgt3oJ6 콴다 dadsfadsfadf.com - 문제가 문제 되지 않을 때까지
         친구가 콴다 스터디 그룹에 초대했어요!함께 공부하러 가볼까요~?
