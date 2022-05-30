@@ -72,7 +72,7 @@ open class URLElementKind: ElementKind, URLElementKindIdentfiableType {
         self.enabledSchemes = enabledSchemes
         var regexPattern = regexBuilder.makeRegexPattern()
         if !enabledSchemes.isEmpty {
-            regexPattern = "newRegexPatternWithEnabledURLList"
+            regexPattern = regexBuilder.makeRegexPattern(enabledSchemes: enabledSchemes)
         }
         super.init(id: id, regexPattern: regexPattern, didTapHandler: didTapHandler)
     }
