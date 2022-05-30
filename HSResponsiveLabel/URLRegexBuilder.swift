@@ -19,18 +19,18 @@ protocol URLRegexBuilerType: RegexBuilderType {
 class URLRegexBuilder: URLRegexBuilerType {
     
     func makeRegexPattern() -> String {
-        return #"(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})"#
+        #"[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)"#
     }
     
     func makeRegexPattern(enabledURLs: [URL?]) -> String {
-        #"\#(enabledURLs.compactMap({ $0?.absoluteString }).joined(separator: "|"))"#
+        #"(\#(enabledURLs.compactMap({ $0?.absoluteString }).joined(separator: "|")))"#
     }
     
     func makeRegexPattern(enabledBaseURLs: [URL?]) -> String {
-        #"(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})"#
+        #"(\#(enabledBaseURLs.compactMap({ $0?.absoluteString }).joined(separator: "|")))\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)"#
     }
     
     func makeRegexPattern(enabledSchemes: [String]) -> String {
-        #"(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})"#
+        #"(\#(enabledSchemes.joined(separator: "|"))):\/\/[(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)"#
     }
 }
