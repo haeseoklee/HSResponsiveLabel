@@ -15,7 +15,7 @@ final class ResponsiveElementManager {
     
     private let regexParser: RegexParserType = RegexParser()
 
-    private var kinds: Set<ElementKind> = Set()
+    private var kinds: [ElementKind] = []
 
     private var elementDict: ResponsiveElementDict = [:]
     
@@ -35,7 +35,8 @@ extension ResponsiveElementManager {
     }
     
     func update(kinds: [ElementKind]) {
-        self.kinds = Set<ElementKind>(kinds)
+        let uniqueKinds = Set<ElementKind>(kinds)
+        self.kinds = uniqueKinds.sorted(by: { $0.priority < $1.priority })
     }
     
     func update(currentSelectedElement: ResponsiveElement?) {
@@ -46,14 +47,14 @@ extension ResponsiveElementManager {
         kinds.forEach { kind in
             elementDict[kind]?.forEach { element in
                 mutAttrString.addAttributes(kind.textAttributes, range: element.range)
-                _ = updateElementAttributes(element: element, hook: kind.configureHandler, to: mutAttrString)
+                _ = updateElementAttributes(element: element, hook: kind.configurationHandler, to: mutAttrString)
             }
         }
     }
     
     func updateElementAttributes(element: ResponsiveElement, to textStorage: NSTextStorage) {
         guard let kind = findKind(by: element) else { return }
-        let result = updateElementAttributes(element: element, hook: kind.configureHandler, to: textStorage)
+        let result = updateElementAttributes(element: element, hook: kind.configurationHandler, to: textStorage)
         if result.canHook {
             return
         }

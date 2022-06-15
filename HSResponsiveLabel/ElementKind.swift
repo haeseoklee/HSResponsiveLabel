@@ -8,7 +8,7 @@
 import UIKit
 
 open class ElementKind: ResponsiveElementKindIdentifiableType {
-    
+
     // MARK: Properties
 
     public let id: ResponsiveElementKindIdentifier
@@ -54,20 +54,24 @@ open class ElementKind: ResponsiveElementKindIdentifiableType {
     }
     
     public let regexPattern: String
+
+    public let priority: ResponsiveElementPriority
     
     open var didTapHandler: ((ResponsiveElement) -> Void)?
     
-    open var configureHandler: ElementConfigureHandlerType?
+    open var configurationHandler: ElementConfigureHandlerType?
     
     // MARK: Methods
     
     public init(
         id: String,
         regexPattern: String,
+        priority: ResponsiveElementPriority = .required,
         didTapHandler: ((ResponsiveElement) -> Void)? = nil
     ) {
         self.id = id
         self.regexPattern = regexPattern
+        self.priority = priority
         self.didTapHandler = didTapHandler
     }
     

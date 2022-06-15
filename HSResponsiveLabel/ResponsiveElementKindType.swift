@@ -28,10 +28,12 @@ public protocol ResponsiveElementKindType {
     var selectedTextAttributes: [NSAttributedString.Key: Any] { get set }
     
     var regexPattern: String { get }
+
+    var priority: ResponsiveElementPriority { get }
     
     var didTapHandler: ElementDidTapHandlerType? { get set }
     
-    var configureHandler: ElementConfigureHandlerType? { get set }
+    var configurationHandler: ElementConfigureHandlerType? { get set }
 }
 
 // MARK: - ResponsiveElementKindIdentifiableType
