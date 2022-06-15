@@ -28,7 +28,7 @@ class ViewController: UIViewController {
         urlKind.textAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20)]
         urlKind.selectedTextColor = .systemYellow
         urlKind.selectedTextAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 25)]
-        urlKind.configureHandler = { element, attributes in
+        urlKind.configurationHandler = { element, attributes in
             var newAttributes = attributes
             switch element.string {
             case "http://www.naver.com":
