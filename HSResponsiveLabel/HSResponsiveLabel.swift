@@ -214,8 +214,10 @@ private extension HSResponsiveLabel {
     func handleWhenRecognized(point: CGPoint) -> Bool {
         var canHandleTouchEvent = false
         guard let index = findTextIndex(at: point),
-              let element = elementManager.findElement(by: index),
+              let element = elementManager.findHighestPriorityElement(by: index),
+              let kind = elementManager.findKind(by: element),
               !elementManager.checkIsCurrentSelectedElement(element),
+              kind.isUserInteractionEnabeld,
               element.isUserInteractionEnabeld else {
             return canHandleTouchEvent
         }
