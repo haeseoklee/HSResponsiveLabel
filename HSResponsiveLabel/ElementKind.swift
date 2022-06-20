@@ -57,9 +57,11 @@ open class ElementKind: ResponsiveElementKindIdentifiableType {
 
     public let priority: ResponsiveElementPriority
     
-    open var didTapHandler: ((ResponsiveElement) -> Void)?
+    open var isUserInteractionEnabeld: Bool
     
-    open var configurationHandler: ElementConfigureHandlerType?
+    open var didTapHandler: ElementDidTapHandlerType?
+    
+    open var configurationHandler: ElementConfigurationHandlerType?
     
     // MARK: Methods
     
@@ -67,11 +69,13 @@ open class ElementKind: ResponsiveElementKindIdentifiableType {
         id: String,
         regexPattern: String,
         priority: ResponsiveElementPriority = .required,
+        isUserInteractionEnabeld: Bool = true,
         didTapHandler: ((ResponsiveElement) -> Void)? = nil
     ) {
         self.id = id
         self.regexPattern = regexPattern
         self.priority = priority
+        self.isUserInteractionEnabeld = isUserInteractionEnabeld
         self.didTapHandler = didTapHandler
     }
     
