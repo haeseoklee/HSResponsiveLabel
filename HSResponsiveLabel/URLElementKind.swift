@@ -9,7 +9,7 @@ import UIKit
 
 // MARK: - URLElementKindIdentfiableType
 
-public protocol URLElementKindIdentfiableType: ResponsiveElementKindIdentifiableType {
+public protocol URLElementKindType: ResponsiveElementKindIdentifiableType {
     
     var enabledURLs: [URL?] { get }
 
@@ -20,7 +20,7 @@ public protocol URLElementKindIdentfiableType: ResponsiveElementKindIdentifiable
 
 // MARK: - URLElementKind
 
-open class URLElementKind: ElementKind, URLElementKindIdentfiableType {
+open class URLElementKind: ElementKind, URLElementKindType {
     
     // MARK: Properties
     

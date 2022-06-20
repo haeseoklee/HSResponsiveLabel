@@ -20,10 +20,7 @@ protocol RegexParserType {
 
 final class RegexParser: RegexParserType {
     
-    func parse(
-        from text: String,
-        pattern: String
-    ) -> [RegexParserResultType] {
+    func parse(from text: String, pattern: String) -> [RegexParserResultType] {
         guard let regex = try? NSRegularExpression(pattern: pattern, options: []) else { return [] }
         let textCheckingResults = regex.matches(in: text, options: [], range: NSRange(text.startIndex..., in: text))
         let results = textCheckingResults.compactMap { checkingResult -> RegexParserResultType? in

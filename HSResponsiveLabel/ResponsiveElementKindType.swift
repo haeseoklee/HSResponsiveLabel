@@ -11,7 +11,7 @@ public typealias ResponsiveElementKindIdentifier = String
 
 public typealias ElementDidTapHandlerType = (ResponsiveElement) -> Void
 
-public typealias ElementConfigureHandlerType = (ResponsiveElement, [NSAttributedString.Key : Any]) -> ElementConfigureHandlerResultType
+public typealias ElementConfigurationHandlerType = (ResponsiveElement, [NSAttributedString.Key : Any]) -> ElementConfigureHandlerResultType
 
 public typealias ElementConfigureHandlerResultType = (canHook: Bool, newAttributes: [NSAttributedString.Key : Any])
 
@@ -28,12 +28,14 @@ public protocol ResponsiveElementKindType {
     var selectedTextAttributes: [NSAttributedString.Key: Any] { get set }
     
     var regexPattern: String { get }
-
+    
     var priority: ResponsiveElementPriority { get }
+    
+    var isUserInteractionEnabeld: Bool { get set }
     
     var didTapHandler: ElementDidTapHandlerType? { get set }
     
-    var configurationHandler: ElementConfigureHandlerType? { get set }
+    var configurationHandler: ElementConfigurationHandlerType? { get set }
 }
 
 // MARK: - ResponsiveElementKindIdentifiableType
