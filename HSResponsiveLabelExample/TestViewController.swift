@@ -19,20 +19,11 @@ class TestViewController: UIViewController {
             self.alert(element.string, message: element.string)
         }
         customKind.textColor = .red
-        customKind.selectedTextColor = .purple
+        customKind.selectedTextColor = .systemMint
 
 
-        let customKind2 = ElementKind(id: "my.custom.kind2", regexPattern: "ationTF 회식")
+        let customKind2 = ElementKind(id: "my.custom.kind2", regexPattern: "ationTF 회식", priority: .low, isUserInteractionEnabeld: false)
         customKind2.textAttributes = [NSAttributedString.Key.backgroundColor: UIColor.yellow]
-
-        customKind2.configurationHandler = {element, attributes in
-            if element.string == "ationTF 회식" {
-                element.isUserInteractionEnabeld = false
-                return (true, attributes)
-            }
-            return (false, attributes)
-        }
-
 
         label.kinds = [customKind, customKind2]
         label.textColor = .black
