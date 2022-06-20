@@ -71,10 +71,10 @@ extension ResponsiveElementManager {
         textStorage.addAttributes([NSAttributedString.Key.foregroundColor: highlightedTextColor], range: element.range)
     }
     
-    func updateElementAttributes<T: NSMutableAttributedString>(
+    func updateElementAttributes(
         element: ResponsiveElement,
-        hook: ElementConfigureHandlerType?,
-        to mutAttrString: T
+        hook: ElementConfigurationHandlerType?,
+        to mutAttrString: NSMutableAttributedString
     ) -> ElementConfigureHandlerResultType {
         guard let hook = hook else {
             return (canHook: false, newAttributes: [:])
@@ -88,18 +88,22 @@ extension ResponsiveElementManager {
         return result
     }
     
-    func findElement(by index: Int?) -> ResponsiveElement? {
+    func findHighestPriorityElement(by index: Int?) -> ResponsiveElement? {
         guard let index = index else { return nil }
+        var highestPriorityElementTuple: (priority: ResponsiveElementPriority, element: ResponsiveElement)?
         for kind in kinds where elementDict[kind] != nil {
             for element in elementDict[kind]! {
                 let startIndex = element.range.location
                 let endIndex = element.range.location + element.range.length
                 if index >= startIndex && index <= endIndex {
-                    return element
+                    if let candidate = highestPriorityElementTuple, kind.priority <= candidate.priority {
+                        continue
+                    }
+                    highestPriorityElementTuple = (kind.priority, element)
                 }
             }
         }
-        return nil
+        return highestPriorityElementTuple?.element
     }
     
     func findKind(by element: ResponsiveElement) -> ElementKind? {
@@ -117,7 +121,9 @@ extension ResponsiveElementManager {
     
     func handleTouchEvent(_ element: ResponsiveElement) {
         DispatchQueue.main.asyncAfter(deadline: .now() + .microseconds(300)) { [weak self] in
-            guard let kind = self?.findKind(by: element), element.isUserInteractionEnabeld else { return }
+            guard let kind = self?.findKind(by: element),
+                  kind.isUserInteractionEnabeld,
+                  element.isUserInteractionEnabeld else { return }
             kind.didTapHandler?(element)
             self?.currentSelectedElement = nil
         }
