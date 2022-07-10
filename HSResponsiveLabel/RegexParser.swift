@@ -7,17 +7,6 @@
 
 import Foundation
 
-// MARK: - RegexParserType
-
-protocol RegexParserType {
-    
-    typealias RegexParserResultType = (range: NSRange, string: String)
-    
-    func parse(from text: String, pattern: String) -> [RegexParserResultType]
-}
-
-// MARK: - RegexParser
-
 final class RegexParser: RegexParserType {
     
     func parse(from text: String, pattern: String) -> [RegexParserResultType] {
