@@ -14,5 +14,3 @@ FOUNDATION_EXPORT double HSResponsiveLabelVersionNumber;
 FOUNDATION_EXPORT const unsigned char HSResponsiveLabelVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <HSResponsiveLabel/PublicHeader.h>
-
-
