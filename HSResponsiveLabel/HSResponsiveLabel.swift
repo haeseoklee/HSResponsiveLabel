@@ -9,7 +9,7 @@ import UIKit
 
 open class HSResponsiveLabel: UILabel {
     
-    // MARK: Override Properties
+    // MARK: Properties
     
     open override var text: String? {
         didSet {
@@ -65,7 +65,11 @@ open class HSResponsiveLabel: UILabel {
         }
     }
     
-    // MARK: Properties
+    open var lineSpacing: CGFloat = 0 {
+        didSet {
+            update()
+        }
+    }
     
     open lazy var kinds: [ElementKind] = [] {
         didSet {
@@ -82,9 +86,11 @@ open class HSResponsiveLabel: UILabel {
     
     private let textContainer: NSTextContainer = NSTextContainer()
 
-    private var heightCorrection: CGFloat = 0
+    private var heightForCenterYAlignment: CGFloat = 0
     
-    // MARK: Override Methods
+    private var isBatchUpdating: Bool = false
+    
+    // MARK: Methods
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
@@ -98,15 +104,15 @@ open class HSResponsiveLabel: UILabel {
     
     open override var intrinsicContentSize: CGSize {
         guard let text = text, !text.isEmpty else { return .zero }
-        textContainer.size = CGSize(width: self.preferredMaxLayoutWidth, height: CGFloat.greatestFiniteMagnitude)
+        updateTextContainer(size: CGSize(width: preferredMaxLayoutWidth, height: CGFloat.greatestFiniteMagnitude))
         let size = layoutManager.usedRect(for: textContainer)
         return CGSize(width: ceil(size.width), height: ceil(size.height))
     }
 
     open override func drawText(in rect: CGRect) {
+        updateTextContainer(size: rect.size)
         let range = NSRange(location: 0, length: textStorage.length)
         let newOrigin = findNewOrigin(in: rect)
-        textContainer.size = rect.size
         layoutManager.drawBackground(forGlyphRange: range, at: newOrigin)
         layoutManager.drawGlyphs(forGlyphRange: range, at: newOrigin)
     }
@@ -122,13 +128,21 @@ open class HSResponsiveLabel: UILabel {
     }
     
     open override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        _ = handle(touch: touches.first)
+        handle(touch: touches.first)
         super.touchesCancelled(touches, with: event)
     }
     
     open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         if handle(touch: touches.first) { return }
         super.touchesEnded(touches, with: event)
+    }
+    
+    open func batchUpdate(configuration: ((HSResponsiveLabel) -> Void)?) {
+        guard !isBatchUpdating else { return }
+        isBatchUpdating = true
+        configuration?(self)
+        isBatchUpdating = false
+        update()
     }
 }
 
@@ -146,42 +160,42 @@ private extension HSResponsiveLabel {
     }
     
     func update() {
-        guard let attributedText = attributedText else { return }
+        guard !isBatchUpdating, let attributedText = attributedText else { return }
         let mutableAttributedText = NSMutableAttributedString(attributedString: attributedText)
-        
         updateAttributes(mutAttrString: mutableAttributedText)
         elementManager.fetchElements(from: mutableAttributedText)
         elementManager.updateElementsAttributes(to: mutableAttributedText)
-        
         textStorage.setAttributedString(mutableAttributedText)
         setNeedsDisplay()
     }
 
+    func updateTextContainer(size: CGSize) {
+        textContainer.size = size
+    }
+
     func updateAttributes(mutAttrString: NSMutableAttributedString) {
         var (range, attributes) = mutAttrString.fetchAttributesAndEffectiveRange()
-        
-        let paragraphStyle = attributes[NSAttributedString.Key.paragraphStyle] as? NSMutableParagraphStyle ?? NSMutableParagraphStyle()
+        let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineBreakMode = lineBreakMode
         paragraphStyle.alignment = textAlignment
-        
+        paragraphStyle.lineSpacing = lineSpacing
         attributes[NSAttributedString.Key.font] = font
         attributes[NSAttributedString.Key.foregroundColor] = textColor
         attributes[NSAttributedString.Key.paragraphStyle] = paragraphStyle
-
         mutAttrString.addAttributes(attributes, range: range)
     }
 
     func findNewOrigin(in rect: CGRect) -> CGPoint {
         let usedRect = layoutManager.usedRect(for: textContainer)
-        heightCorrection = (rect.height - usedRect.height) / 2
-        let glyphOriginY = heightCorrection > 0 ? rect.origin.y + heightCorrection : rect.origin.y
+        heightForCenterYAlignment = (rect.height - usedRect.height) / 2
+        let glyphOriginY = heightForCenterYAlignment > 0 ? rect.origin.y + heightForCenterYAlignment : rect.origin.y
         return CGPoint(x: rect.origin.x, y: glyphOriginY)
     }
     
     func findTextIndex(at point: CGPoint) -> Int? {
         guard textStorage.length > 0 else { return nil }
         var correctLocation = point
-        correctLocation.y -= heightCorrection
+        correctLocation.y -= heightForCenterYAlignment
         let boundingRect = layoutManager.boundingRect(
             forGlyphRange: NSRange(location: 0, length: textStorage.length), in: textContainer
         )
@@ -190,20 +204,27 @@ private extension HSResponsiveLabel {
         return index
     }
     
+    @discardableResult
     func handle(touch: UITouch?) -> Bool {
         var canHandleTouchEvent = false
         guard let touch = touch else { return canHandleTouchEvent }
-        
         switch touch.phase {
-        case .began, .moved, .regionEntered, .regionMoved:
+        case .began, .regionEntered, .regionMoved:
             let point = touch.location(in: self)
             canHandleTouchEvent = handleWhenRecognized(point: point)
+            setNeedsDisplay()
             return canHandleTouchEvent
         
-        case .ended, .regionExited, .cancelled:
-            canHandleTouchEvent = handleWhenDerecognized()
+        case .ended, .regionExited:
+            canHandleTouchEvent = handleWhenDerecognized(isSuccess: true)
+            setNeedsDisplay()
             return canHandleTouchEvent
-            
+
+        case .cancelled:
+            canHandleTouchEvent = handleWhenDerecognized(isSuccess: false)
+            setNeedsDisplay()
+            return canHandleTouchEvent
+
         default:
             break
         }
@@ -217,54 +238,44 @@ private extension HSResponsiveLabel {
               let element = elementManager.findHighestPriorityElement(by: index),
               let kind = elementManager.findKind(by: element),
               !elementManager.checkIsCurrentSelectedElement(element),
-              kind.isUserInteractionEnabeld,
-              element.isUserInteractionEnabeld else {
+              kind.isUserInteractionEnabled,
+              element.isUserInteractionEnabled else {
             return canHandleTouchEvent
         }
         elementManager.update(currentSelectedElement: element)
         elementManager.updateElementAttributesWhenSelected(element: element, to: textStorage)
-        setNeedsDisplay()
         canHandleTouchEvent = true
         return canHandleTouchEvent
     }
     
-    func handleWhenDerecognized() -> Bool {
+    func handleWhenDerecognized(isSuccess: Bool) -> Bool {
         var canHandleTouchEvent = false
         guard let element = elementManager.currentSelectedElement else {
             return canHandleTouchEvent
         }
-        elementManager.handleTouchEvent(element)
+        isSuccess ? elementManager.handleTouchEvent(element) : ()
         elementManager.updateElementAttributes(element: element, to: textStorage)
         elementManager.updateElementAttributes(element: element, highlightedTextColor: highlightedTextColor, from: textStorage)
         elementManager.update(currentSelectedElement: nil)
-        setNeedsDisplay()
         canHandleTouchEvent = true
         return canHandleTouchEvent
-    }}
+    }
+}
 
 
 // MARK: - UIGestureRecognizerDelegate
 
 extension HSResponsiveLabel: UIGestureRecognizerDelegate {
 
-    public func gestureRecognizer(
-        _ gestureRecognizer: UIGestureRecognizer,
-        shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer
-    ) -> Bool {
+    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
     }
     
-    public func gestureRecognizer(
-        _ gestureRecognizer: UIGestureRecognizer,
-        shouldRequireFailureOf otherGestureRecognizer: UIGestureRecognizer
-    ) -> Bool {
+    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRequireFailureOf otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
     }
     
-    public func gestureRecognizer(
-        _ gestureRecognizer: UIGestureRecognizer,
-        shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer
-    ) -> Bool {
+    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
     }
 }
