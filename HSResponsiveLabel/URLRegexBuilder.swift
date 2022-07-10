@@ -19,7 +19,7 @@ protocol URLRegexBuilerType: RegexBuilderType {
 class URLRegexBuilder: URLRegexBuilerType {
     
     func makeRegexPattern() -> String {
-        #"[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)"#
+        #"[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?!&//=]*)"#
     }
     
     func makeRegexPattern(enabledURLs: [URL?]) -> String {
@@ -27,10 +27,10 @@ class URLRegexBuilder: URLRegexBuilerType {
     }
     
     func makeRegexPattern(enabledBaseURLs: [URL?]) -> String {
-        #"(\#(enabledBaseURLs.compactMap({ $0?.absoluteString }).joined(separator: "|")))\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)"#
+        #"(\#(enabledBaseURLs.compactMap({ $0?.absoluteString }).joined(separator: "|")))\b([-a-zA-Z0-9@:%_\+.~#?!&//=]*)"#
     }
     
     func makeRegexPattern(enabledSchemes: [String]) -> String {
-        #"(\#(enabledSchemes.joined(separator: "|"))):\/\/[(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)"#
+        #"(\#(enabledSchemes.joined(separator: "|"))):\/\/[(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?!&//=]*)"#
     }
 }
