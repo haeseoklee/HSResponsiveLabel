@@ -2,7 +2,7 @@
 //  ResponsiveElementPriority.swift
 //  HSResponsiveLabel
 //
-//  Created by Louie Lee on 2022/06/15.
+//  Created by Haeseok Lee on 2022/06/15.
 //
 
 import Foundation

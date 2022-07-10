@@ -11,8 +11,6 @@ final class ResponsiveElementManager {
     
     typealias ResponsiveElementDict = [ElementKind: [ResponsiveElement]]
     
-    // MARK: Properties
-    
     private let regexParser: RegexParserType = RegexParser()
 
     private var kinds: [ElementKind] = []
@@ -47,7 +45,7 @@ extension ResponsiveElementManager {
         kinds.forEach { kind in
             elementDict[kind]?.forEach { element in
                 mutAttrString.addAttributes(kind.textAttributes, range: element.range)
-                _ = updateElementAttributes(element: element, hook: kind.configurationHandler, to: mutAttrString)
+                updateElementAttributes(element: element, hook: kind.configurationHandler, to: mutAttrString)
             }
         }
     }
@@ -71,11 +69,8 @@ extension ResponsiveElementManager {
         textStorage.addAttributes([NSAttributedString.Key.foregroundColor: highlightedTextColor], range: element.range)
     }
     
-    func updateElementAttributes(
-        element: ResponsiveElement,
-        hook: ElementConfigurationHandlerType?,
-        to mutAttrString: NSMutableAttributedString
-    ) -> ElementConfigureHandlerResultType {
+    @discardableResult
+    func updateElementAttributes(element: ResponsiveElement, hook: ConfigureElementHandlerType?, to mutAttrString: NSMutableAttributedString) -> ConfigureElementHandlerResultType {
         guard let hook = hook else {
             return (canHook: false, newAttributes: [:])
         }
@@ -122,8 +117,8 @@ extension ResponsiveElementManager {
     func handleTouchEvent(_ element: ResponsiveElement) {
         DispatchQueue.main.asyncAfter(deadline: .now() + .microseconds(300)) { [weak self] in
             guard let kind = self?.findKind(by: element),
-                  kind.isUserInteractionEnabeld,
-                  element.isUserInteractionEnabeld else { return }
+                  kind.isUserInteractionEnabled,
+                  element.isUserInteractionEnabled else { return }
             kind.didTapHandler?(element)
             self?.currentSelectedElement = nil
         }

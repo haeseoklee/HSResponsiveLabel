@@ -7,21 +7,21 @@
 
 import UIKit
 
-open class ElementKind: ResponsiveElementKindIdentifiableType {
+open class ElementKind: ResponsiveElementKindType {
 
     // MARK: Properties
 
     public let id: ResponsiveElementKindIdentifier
     
-    open var textColor: UIColor? = .blue {
+    open var textColor: UIColor? = .systemBlue {
         didSet {
-            textAttributes[NSAttributedString.Key.foregroundColor] = textColor
+            _textAttributes[NSAttributedString.Key.foregroundColor] = textColor
         }
     }
     
-    open var selectedTextColor: UIColor? = .blue {
+    open var selectedTextColor: UIColor? = .systemBlue {
         didSet {
-            selectedTextAttributes[NSAttributedString.Key.foregroundColor] = selectedTextColor
+            _selectedTextAttributes[NSAttributedString.Key.foregroundColor] = selectedTextColor
         }
     }
     
@@ -57,11 +57,11 @@ open class ElementKind: ResponsiveElementKindIdentifiableType {
 
     public let priority: ResponsiveElementPriority
     
-    open var isUserInteractionEnabeld: Bool
+    open var isUserInteractionEnabled: Bool
     
-    open var didTapHandler: ElementDidTapHandlerType?
+    open var didTapHandler: DidTapElementHandlerType?
     
-    open var configurationHandler: ElementConfigurationHandlerType?
+    open var configurationHandler: ConfigureElementHandlerType?
     
     // MARK: Methods
     
@@ -69,13 +69,13 @@ open class ElementKind: ResponsiveElementKindIdentifiableType {
         id: String,
         regexPattern: String,
         priority: ResponsiveElementPriority = .required,
-        isUserInteractionEnabeld: Bool = true,
-        didTapHandler: ((ResponsiveElement) -> Void)? = nil
+        isUserInteractionEnabled: Bool = true,
+        didTapHandler: DidTapElementHandlerType? = nil
     ) {
         self.id = id
         self.regexPattern = regexPattern
         self.priority = priority
-        self.isUserInteractionEnabeld = isUserInteractionEnabeld
+        self.isUserInteractionEnabled = isUserInteractionEnabled
         self.didTapHandler = didTapHandler
     }
     

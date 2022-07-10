@@ -9,15 +9,15 @@ import UIKit
 
 public typealias ResponsiveElementKindIdentifier = String
 
-public typealias ElementDidTapHandlerType = (ResponsiveElement) -> Void
+public typealias DidTapElementHandlerType = (ResponsiveElement) -> Void
 
-public typealias ElementConfigurationHandlerType = (ResponsiveElement, [NSAttributedString.Key : Any]) -> ElementConfigureHandlerResultType
+public typealias ConfigureElementHandlerType = (ResponsiveElement, [NSAttributedString.Key: Any]) -> ConfigureElementHandlerResultType
 
-public typealias ElementConfigureHandlerResultType = (canHook: Bool, newAttributes: [NSAttributedString.Key : Any])
+public typealias ConfigureElementHandlerResultType = (canHook: Bool, newAttributes: [NSAttributedString.Key: Any])
 
 // MARK: - ResponsiveElementKindType
 
-public protocol ResponsiveElementKindType {
+public protocol ResponsiveElementKindType: Identifiable, Hashable {
     
     var textColor: UIColor? { get set }
     
@@ -31,13 +31,9 @@ public protocol ResponsiveElementKindType {
     
     var priority: ResponsiveElementPriority { get }
     
-    var isUserInteractionEnabeld: Bool { get set }
+    var isUserInteractionEnabled: Bool { get set }
     
-    var didTapHandler: ElementDidTapHandlerType? { get set }
+    var didTapHandler: DidTapElementHandlerType? { get set }
     
-    var configurationHandler: ElementConfigurationHandlerType? { get set }
+    var configurationHandler: ConfigureElementHandlerType? { get set }
 }
-
-// MARK: - ResponsiveElementKindIdentifiableType
-
-public protocol ResponsiveElementKindIdentifiableType: Identifiable, Hashable, ResponsiveElementKindType {}

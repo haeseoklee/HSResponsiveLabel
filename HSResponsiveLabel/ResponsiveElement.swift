@@ -15,17 +15,17 @@ public class ResponsiveElement: Identifiable {
     
     public let string: String
     
-    public var isUserInteractionEnabeld: Bool
+    public var isUserInteractionEnabled: Bool
     
     public init(
         id: ResponsiveElementKindIdentifier,
         range: NSRange,
         string: String,
-        isUserInteractionEnabeld: Bool = true
+        isUserInteractionEnabled: Bool = true
     ) {
         self.id = id
         self.range = range
         self.string = string
-        self.isUserInteractionEnabeld = isUserInteractionEnabeld
+        self.isUserInteractionEnabled = isUserInteractionEnabled
     }
 }
