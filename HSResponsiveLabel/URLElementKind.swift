@@ -7,9 +7,9 @@
 
 import UIKit
 
-// MARK: - URLElementKindIdentfiableType
+// MARK: - URLElementKindType
 
-public protocol URLElementKindType: ResponsiveElementKindIdentifiableType {
+public protocol URLElementKindType: ResponsiveElementKindType {
     
     var enabledURLs: [URL?] { get }
 
@@ -34,46 +34,81 @@ open class URLElementKind: ElementKind, URLElementKindType {
     
     // MARK: Methods
     
-    public init(id: String, didTapHandler: ElementDidTapHandlerType? = nil) {
-        super.init(id: id, regexPattern: regexBuilder.makeRegexPattern(), didTapHandler: didTapHandler)
+    public init(
+        id: String,
+        priority: ResponsiveElementPriority = .required,
+        isUserInteractionEnabled: Bool = true,
+        didTapHandler: DidTapElementHandlerType? = nil
+    ) {
+        super.init(
+            id: id,
+            regexPattern: regexBuilder.makeRegexPattern(),
+            priority: priority,
+            isUserInteractionEnabled: isUserInteractionEnabled,
+            didTapHandler: didTapHandler
+        )
     }
 
     public init(
         id: String,
+        priority: ResponsiveElementPriority = .required,
+        isUserInteractionEnabled: Bool = true,
         enabledURLs: [URL?],
-        didTapHandler: ElementDidTapHandlerType? = nil
+        didTapHandler: DidTapElementHandlerType? = nil
     ) {
         self.enabledURLs = enabledURLs
         var regexPattern = regexBuilder.makeRegexPattern()
         if !enabledURLs.isEmpty {
             regexPattern = regexBuilder.makeRegexPattern(enabledURLs: enabledURLs)
         }
-        super.init(id: id, regexPattern: regexPattern, didTapHandler: didTapHandler)
+        super.init(
+            id: id,
+            regexPattern: regexPattern,
+            priority: priority,
+            isUserInteractionEnabled: isUserInteractionEnabled,
+            didTapHandler: didTapHandler
+        )
     }
 
     public init(
         id: String,
+        priority: ResponsiveElementPriority = .required,
+        isUserInteractionEnabled: Bool = true,
         enabledBaseURLs: [URL?],
-        didTapHandler: ElementDidTapHandlerType? = nil
+        didTapHandler: DidTapElementHandlerType? = nil
     ) {
         self.enabledBaseURLs = enabledBaseURLs
         var regexPattern = regexBuilder.makeRegexPattern()
         if !enabledBaseURLs.isEmpty {
             regexPattern = regexBuilder.makeRegexPattern(enabledBaseURLs: enabledBaseURLs)
         }
-        super.init(id: id, regexPattern: regexPattern, didTapHandler: didTapHandler)
+        super.init(
+            id: id,
+            regexPattern: regexPattern,
+            priority: priority,
+            isUserInteractionEnabled: isUserInteractionEnabled,
+            didTapHandler: didTapHandler
+        )
     }
     
     public init(
         id: String,
+        priority: ResponsiveElementPriority = .required,
+        isUserInteractionEnabled: Bool = true,
         enabledSchemes: [String],
-        didTapHandler: ElementDidTapHandlerType? = nil
+        didTapHandler: DidTapElementHandlerType? = nil
     ) {
         self.enabledSchemes = enabledSchemes
         var regexPattern = regexBuilder.makeRegexPattern()
         if !enabledSchemes.isEmpty {
             regexPattern = regexBuilder.makeRegexPattern(enabledSchemes: enabledSchemes)
         }
-        super.init(id: id, regexPattern: regexPattern, didTapHandler: didTapHandler)
+        super.init(
+            id: id,
+            regexPattern: regexPattern,
+            priority: priority,
+            isUserInteractionEnabled: isUserInteractionEnabled,
+            didTapHandler: didTapHandler
+        )
     }
 }
